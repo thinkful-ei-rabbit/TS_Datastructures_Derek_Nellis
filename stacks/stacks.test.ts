@@ -75,7 +75,7 @@ validBrackets("const \"x{[{)(\" = [dsa({d}ds'a)a')a] => '{}}'"); //?
 type SortStack = (
   StackA: NodeStack<number>,
   AccStack?: NodeStack<number>
-) => any;
+) => number | number[] | null;
 
 const sortStack: SortStack = (StackA, AccStack) => {
   const StackB = new NodeStack<number>(StackA.returnHeight());
@@ -97,15 +97,17 @@ const sortStack: SortStack = (StackA, AccStack) => {
     StackA.pop();
   }
 
-  if (!AccStack) {
-    AccStack = new NodeStack<number>(StackB.returnHeight() + 1);
+  if (AccStack) {
     AccStack.push(sortStack(StackB, AccStack));
-    temp && AccStack.push(temp);
-    return AccStack.returnStack();
+    return temp;
   }
 
+  AccStack = new NodeStack<number>(StackB.returnHeight() + 1);
   AccStack.push(sortStack(StackB, AccStack));
-  return temp;
+  temp && AccStack.push(temp);
+
+  let sortArr = AccStack.returnStack();
+  return sortArr && sortArr;
 };
 const Unsorted = new NodeStack<number>(7);
 Unsorted.push(3);

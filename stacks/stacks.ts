@@ -77,19 +77,33 @@ class NodeStack<T> {
     this.bottom = null;
   }
 
-  public push(item: T): void {
+  public push(item: T | T[] | null): void {
+    if (!item) {
+      throw new Error('Invalid item!');
+    }
+
     if (this.isFull()) {
       throw new Error('Stack already full!');
     }
 
-    let newNode = new StkNode<T>(item, null);
+    if (Array.isArray(item)) {
+      if (item.length > this.availableSpace()) {
+        throw new Error('Not enough space!');
+      }
 
-    if (!this.top) {
-      this.bottom = newNode;
-    } else newNode.next = this.top;
+      for (let i = 0; i < item.length; i++) {
+        this.push(item[i]);
+      }
+    } else {
+      let newNode = new StkNode<T>(item, null);
 
-    this.top = newNode;
-    console.log(`Stack height: ${++this.height}`);
+      if (!this.top) {
+        this.bottom = newNode;
+      } else newNode.next = this.top;
+
+      this.top = newNode;
+      console.log(`Stack height: ${++this.height}`);
+    }
   }
 
   public pop(): T {
@@ -116,6 +130,10 @@ class NodeStack<T> {
 
   public isFull(): boolean {
     return this.height === this.maxSize;
+  }
+
+  public availableSpace(): number {
+    return this.maxSize - this.height;
   }
 
   public printHeight(): void {
