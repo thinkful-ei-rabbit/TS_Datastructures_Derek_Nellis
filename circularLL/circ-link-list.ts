@@ -27,14 +27,24 @@ class CircularLL<T> {
     if (!this.head) {
       return null;
     }
-
-    idx = idx ? idx : idx === 0 ? 0 : this.currSize;
+    idx; //?
+    this.currSize; //?
+    idx = idx ? idx : idx === 0 ? 0 : this.currSize - 1; //?
     let i = 0;
     let currNode = this.head;
-    while (i < idx && currNode.next && currNode.value !== item) {
-      currNode = currNode.next;
-      i++;
-    }
+    if (item || idx + 1 <= this.currSize / 2) {
+      while (i < idx && currNode.next && currNode.value !== item) {
+        currNode = currNode.next;
+        i++;
+      }
+    } else if (this.tail) {
+      i = this.currSize - 1;
+      currNode = this.tail;
+      while (i > idx && currNode.prev) {
+        currNode = currNode.prev;
+        i--;
+      }
+    } else return null;
 
     if (!item) return currNode;
     return currNode.value === item ? currNode : null;
