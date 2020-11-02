@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "strict": true,
+    "lib": ["ESNext", "DOM"],
+    "jsx": "preserve",
+    "rootDir": ".",
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "esModuleInterop": true,
+    "experimentalDecorators": true
+  },
+  "include": ["./**/*"],
+  "exclude": ["./node_modules/**/*"]
+}
