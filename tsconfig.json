@@ -6,6 +6,7 @@
     "jsx": "preserve",
     "rootDir": ".",
     "typeRoots": ["./types", "./node_modules/@types"],
+    "target": "ESNext",
     "esModuleInterop": true,
     "experimentalDecorators": true
   },

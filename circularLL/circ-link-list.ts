@@ -27,9 +27,9 @@ class CircularLL<T> {
     if (!this.head) {
       return null;
     }
-    idx; //?
-    this.currSize; //?
-    idx = idx ? idx : idx === 0 ? 0 : this.currSize - 1; //?
+
+    this.currSize;
+    idx = idx ? idx : idx === 0 ? 0 : this.currSize - 1;
     let i = 0;
     let currNode = this.head;
     if (item || idx + 1 <= this.currSize / 2) {
